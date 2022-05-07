@@ -2,12 +2,13 @@ package com.example.demo.Entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "user_list")
@@ -27,8 +28,9 @@ public class User implements UserDetails {
     @ElementCollection
     private Map<String, String> profile;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Feature> features = new HashSet<>();
+    @OneToMany(cascade=CascadeType.ALL)
+    @CollectionTable(name = "user_features", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Feature> features;
 
     public boolean isAdmin()
     {
@@ -37,23 +39,6 @@ public class User implements UserDetails {
         else
             return (userRole.contains(UserRole.ADMIN));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public long getId() {
         return id;
     }
@@ -69,6 +54,11 @@ public class User implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return userRole;
     }
 
     @Override
@@ -96,6 +86,22 @@ public class User implements UserDetails {
         this.userRole = userRole;
     }
 
+    public Map<String, String> getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Map<String, String> profile) {
+        this.profile = profile;
+    }
+
+    public Set<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(Set<Feature> features) {
+        this.features = features;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -114,10 +120,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isActive();
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return userRole;
     }
 }

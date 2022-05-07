@@ -13,7 +13,7 @@ public class Vacancy {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "vacancy")
+    @OneToMany
     private Set<Feature> features;
 
     public Vacancy() {

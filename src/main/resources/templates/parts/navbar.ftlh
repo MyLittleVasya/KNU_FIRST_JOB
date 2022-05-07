@@ -22,13 +22,15 @@
             </#if>
         </ul>
 
-        <div class="navbar-text mr-3">${name}</div>
+
         <#if !known>
+            <div class="navbar-text mr-3">${name}</div>
             <form action="/logout" method="post">
                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
                 <button class="btn btn-primary" type="submit">Sign in</button>
             </form>
             <#else>
+                <a class="nav-link" href="/profile/${securityId}">${name}</a>
                 <form action="/login" method="post">
                     <input type="hidden" name="_csrf" value="${_csrf.token}" />
                     <button class="btn btn-primary" type="submit">Sign out</button>

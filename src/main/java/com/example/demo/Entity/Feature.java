@@ -5,15 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "features")
 public class Feature {
-
-    @ManyToOne
-    @JoinColumn(name="feature_id", nullable=false)
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "feature", nullable = false)
-    private Vacancy vacancy;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
