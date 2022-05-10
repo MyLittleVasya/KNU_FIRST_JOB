@@ -31,7 +31,6 @@ public class ProfileController {
     public String getProfile(Model model, @PathVariable long id)
     {
         var user = userRepo.findById(id);
-        model.addAttribute("userProfile", user);
         String result = "";
         if (!user.getFeatures().isEmpty())
         {
@@ -42,13 +41,15 @@ public class ProfileController {
             }
         }
         model.addAttribute("feature", result);
+        model.addAttribute("userProfile", user);
         return "profile";
     }
 
-    @PostMapping("/updateFeatures")
+    @PostMapping("/updateProfile")
     public String updateProfile(@RequestParam Map<String, String> body)
     {
         userService.addFeatures(body.get("features"), body.get("user_id"));
-        return "redirect:/profile/1";
+        userService.updateProfile(body);
+        return "redirect:/";
     }
 }

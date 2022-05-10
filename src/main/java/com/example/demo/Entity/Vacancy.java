@@ -9,17 +9,20 @@ public class Vacancy {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    @ManyToOne
+    private Company company;
+    @ManyToOne
+    private User author;
     private String name;
     private String description;
-
-    @OneToMany
+    @ManyToMany
     private Set<Feature> features;
-
     public Vacancy() {
     }
 
-    public Vacancy(String name, String description, Set<Feature> features) {
+    public Vacancy(Company company, User author, String name, String description, Set<Feature> features) {
+        this.company = company;
+        this.author = author;
         this.name = name;
         this.description = description;
         this.features = features;
@@ -55,5 +58,21 @@ public class Vacancy {
 
     public void setFeatures(Set<Feature> features) {
         this.features = features;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

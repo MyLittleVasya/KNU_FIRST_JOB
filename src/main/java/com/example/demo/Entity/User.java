@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,10 +26,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<UserRole> userRole;
 
-    @ElementCollection
-    private Map<String, String> profile;
+    @OneToOne(fetch = FetchType.EAGER)
+    private Profile profile;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
     @CollectionTable(name = "user_features", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Feature> features;
 
@@ -86,11 +87,11 @@ public class User implements UserDetails {
         this.userRole = userRole;
     }
 
-    public Map<String, String> getProfile() {
+    public Profile getProfile() {
         return profile;
     }
 
-    public void setProfile(Map<String, String> profile) {
+    public void setProfile(Profile profile) {
         this.profile = profile;
     }
 

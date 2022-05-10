@@ -1,4 +1,8 @@
 package com.example.demo.Repo;
 
-public interface ProfileRepo {
+import com.example.demo.Entity.Profile;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProfileRepo extends JpaRepository<Profile, Long> {
+    Profile findById(long id);
 }
