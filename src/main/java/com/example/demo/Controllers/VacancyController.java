@@ -44,10 +44,11 @@ public class VacancyController {
     }
 
     @GetMapping("/vacancy/{id}")
-    public String getVacancy(@PathVariable long id, Model model)
+    public String getVacancy(@PathVariable long id, Model model, @AuthenticationPrincipal User user)
     {
         var vacancy = vacancyRepo.findById(id);
         model.addAttribute("vacancy", vacancy);
+        model.addAttribute("visitor", user);
         return "vacancy";
     }
 
@@ -67,6 +68,23 @@ public class VacancyController {
         var vacancy = vacancyRepo.findById(Long.parseLong(body.get("vacancy")));
         if (!vacancy.getCandidates().contains(user))
             vacancy.getCandidates().add(user);
+        vacancyRepo.save(vacancy);
         return "redirect:/vacancyList";
     }
+
+    @GetMapping("/viewAuthorVacancies")
+    public String getVacancies(Model model, @AuthenticationPrincipal User user)
+    {
+        model.addAttribute("vacancies", vacancyRepo.findByAuthor(user));
+        return "authorVacancyList";
+    }
+
+    @GetMapping("/candidates/{vacancyId}")
+    public String getCandidates(@PathVariable long vacancyId, Model model)
+    {
+        var vacancy = vacancyRepo.findById(vacancyId);
+        model.addAttribute("users", vacancyService.createUserRating(vacancy));
+        return "candidatesList";
+    }
+
 }

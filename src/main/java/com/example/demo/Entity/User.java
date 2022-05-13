@@ -37,28 +37,18 @@ public class User implements UserDetails {
         else
             return (userRole.contains(UserRole.ADMIN));
     }
-
-    public double getRating(Vacancy vacancy)
+    public String getFeatureForField()
     {
-        double userRating = 0;
-        double skills = 0;
-        double maxRating = 10+(vacancy.getFeatures().size()*4);
-        for (var feature : this.getFeatures())
+        String result = "";
+        if (!this.getFeatures().isEmpty())
         {
-            if (vacancy.getFeatures().contains(feature))
+            for (Feature feature: this.getFeatures())
             {
-                userRating+=4;
-                skills++;
+                result += feature.getName();
+                result +=",";
             }
-
         }
-        userRating += this.getProfile().getExperience()*10/vacancy.getExperience();
-        userRating = userRating*100/maxRating;
-        if (skills == 0)
-            userRating = 0;
-        if (userRating > 100)
-            userRating = 100;
-        return userRating;
+        return result;
     }
     public long getId() {
         return id;

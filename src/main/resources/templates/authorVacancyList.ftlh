@@ -3,20 +3,15 @@
 <@starter.page>
     <div class="row row-cols-5">
         <#if vacancies??>
-            <#list vacancies as vacancy, value>
+            <#list vacancies as vacancy>
                 <div class="profile-block" style="width: 400px;" align="center">
                     <div class="card-body">
                         <h5 class="card-title">${vacancy.name}</h5>
                         <p class="card-text"><input class="form-control m-1" type="text" value="${vacancy.getFeatureForField()}" data-role="tagsinput" name="features" style="text-align: center" id="skills" disabled/></p>
                         <p class="card-text">Досвід: ${vacancy.experience} років</p>
                         <p class="card-text" style="font-size: 35px">${vacancy.salary}$</p>
-                        <p class="card-text" >Відповідність вакансії:
-                            <b><#if value gt 100>
-                            ${value-1}
-                                    <#else>
-                                    ${value}
-                        </#if>%</b></p>
                         <a href="/vacancy/${vacancy.id}" class="btn btn-outline-dark m-1">Переглянути вакансію</a>
+                        <a href="/candidates/${vacancy.id}" class="btn btn-outline-dark m-1">Переглянути кандидатів</a>
                     </div>
                 </div>
             </#list>

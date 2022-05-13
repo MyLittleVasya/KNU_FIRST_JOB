@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/vacancyList">Vacancies</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/viewAuthorVacancies">My vacancies</a>
+                </li>
             </ul>
             <#if known>
                 <form action="/profile/${securityId}" method="get">

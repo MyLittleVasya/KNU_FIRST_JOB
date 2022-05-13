@@ -23,9 +23,11 @@
                 <label for="range">Опис вакансії</label>
                 <textarea class="form-control my-1 mr-3" name="story" maxlength="1024" name="story" style="height: 250px; max-height: 350px" disabled>${vacancy.description}</textarea>
             </div>
-            <div align="center">
-                <button class="btn btn-outline-dark m-1" type="submit">Відгукнутись</button>
-            </div>
+            <#if visitor.id != vacancy.author.id>
+                <div align="center">
+                    <button class="btn btn-outline-dark m-1" type="submit">Відгукнутись</button>
+                </div>
+            </#if>
         </form>
     </div>
 </@starter.page>

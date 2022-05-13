@@ -28,7 +28,7 @@ public class ProfileController {
     private UserService userService;
 
     @GetMapping("/profile/{id}")
-    public String getProfile(Model model, @PathVariable long id)
+    public String getProfile(Model model, @PathVariable long id, @AuthenticationPrincipal User visitor)
     {
         var user = userRepo.findById(id);
         String result = "";
@@ -42,6 +42,7 @@ public class ProfileController {
         }
         model.addAttribute("feature", result);
         model.addAttribute("userProfile", user);
+        model.addAttribute("visitor", visitor);
         return "profile";
     }
 

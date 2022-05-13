@@ -18,7 +18,7 @@
                 <p><output></output> років</p>
 
                 <label for="salary">Орієнтовна З/П $</label>
-                <input class="form-control w-25 m-3" type="number" name="salary" id="salary" step="100"/>
+                <input class="form-control w-25 m-3" type="number" name="salary" id="salary" step="100" required/>
             </div>
             <div class="col-sm-6 m-1 p-1 profile-block" style="max-height: 500px">
                 <label for="range">Опис вакансії</label>
