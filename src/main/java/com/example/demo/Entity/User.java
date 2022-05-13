@@ -5,10 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -39,6 +36,29 @@ public class User implements UserDetails {
             return false;
         else
             return (userRole.contains(UserRole.ADMIN));
+    }
+
+    public double getRating(Vacancy vacancy)
+    {
+        double userRating = 0;
+        double skills = 0;
+        double maxRating = 10+(vacancy.getFeatures().size()*4);
+        for (var feature : this.getFeatures())
+        {
+            if (vacancy.getFeatures().contains(feature))
+            {
+                userRating+=4;
+                skills++;
+            }
+
+        }
+        userRating += this.getProfile().getExperience()*10/vacancy.getExperience();
+        userRating = userRating*100/maxRating;
+        if (skills == 0)
+            userRating = 0;
+        if (userRating > 100)
+            userRating = 100;
+        return userRating;
     }
     public long getId() {
         return id;

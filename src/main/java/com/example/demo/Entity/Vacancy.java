@@ -1,6 +1,8 @@
 package com.example.demo.Entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -9,23 +11,41 @@ public class Vacancy {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    private String name;
+    @ManyToMany
+    private Set<Feature> features = new HashSet<>();
+    private double experience;
+    private String description;
+    private int salary;
     @ManyToOne
     private Company company;
     @ManyToOne
     private User author;
-    private String name;
-    private String description;
     @ManyToMany
-    private Set<Feature> features;
+    private List<User> candidates;
     public Vacancy() {
     }
-
-    public Vacancy(Company company, User author, String name, String description, Set<Feature> features) {
-        this.company = company;
+    public Vacancy( User author, String name, String description, double experience, int salary) {
         this.author = author;
         this.name = name;
         this.description = description;
-        this.features = features;
+        this.experience = experience;
+        this.salary = salary;
+    }
+
+    public String getFeatureForField()
+    {
+        String result = "";
+        if (!this.getFeatures().isEmpty())
+        {
+            for (Feature feature: this.getFeatures())
+            {
+                result += feature.getName();
+                result +=",";
+            }
+        }
+        return result;
     }
 
     public long getId() {
@@ -74,5 +94,29 @@ public class Vacancy {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public List<User> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(List<User> candidates) {
+        this.candidates = candidates;
+    }
+
+    public double getExperience() {
+        return experience;
+    }
+
+    public void setExperience(double experience) {
+        this.experience = experience;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 }

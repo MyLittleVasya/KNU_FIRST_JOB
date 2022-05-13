@@ -95,6 +95,8 @@ public class UserService implements UserDetailsService {
             user.getProfile().setPetProject(body.get("pet"));
         if (!StringUtils.isEmpty(body.get("cv")))
             user.getProfile().setCv(body.get("cv"));
+        if (!StringUtils.isEmpty(body.get("pib")))
+            user.getProfile().setPIB(body.get("pib"));
         userRepo.save(user);
     }
 }

@@ -2,5 +2,7 @@
 <#import "parts/login.ftlh" as l>
 
 <@c.page>
-    <@l.login "/login" false/>
+    <div class="profile-block" align="center">
+        <@l.login "/login" false/>
+    </div>
 </@c.page>

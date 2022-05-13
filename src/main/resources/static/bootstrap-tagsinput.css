@@ -5,6 +5,8 @@
   vertical-align: middle;
   border-radius: 4px;
   cursor: text;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 .bootstrap-tagsinput input {
   border: none;

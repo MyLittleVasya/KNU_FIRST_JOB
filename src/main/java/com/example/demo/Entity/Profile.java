@@ -1,7 +1,6 @@
 package com.example.demo.Entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "profiles")
@@ -9,13 +8,10 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     private String university;
     private String specialization;
     private double experience;
-
     private String formOfWork;
-
     private String story;
     private String marks;
     private String communication;
@@ -23,6 +19,11 @@ public class Profile {
     private String petProject;
 
     private String cv;
+
+    @ManyToOne
+    private Company company;
+
+    private String PIB;
 
     public long getId() {
         return id;
@@ -102,5 +103,21 @@ public class Profile {
 
     public void setFormOfWork(String formOfWork) {
         this.formOfWork = formOfWork;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public String getPIB() {
+        return PIB;
+    }
+
+    public void setPIB(String PIB) {
+        this.PIB = PIB;
     }
 }
