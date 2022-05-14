@@ -69,8 +69,8 @@
                             <input class="input_text m-1" name="marks" type="text" value="${userProfile.profile.marks?ifExists}"/>
                         </div>
                         <div class="col-sm profile-block m-1">
-                            Связь с тобой
-                            <input class="input_text m-1" name="contact" type="text" value="${userProfile.profile.communication?ifExists}"/>
+                            Пошта для зв'язку
+                            <input class="input_text m-1" name="contact" type="text" value="${userProfile.profile.email?ifExists}"/>
                         </div>
                     </div>
                 </div>
@@ -157,8 +157,8 @@
                                 <input class="input_text m-1" name="marks" type="text" value="${userProfile.profile.marks?ifExists}" disabled/>
                             </div>
                             <div class="col-sm profile-block m-1">
-                                Связь с тобой
-                                <input class="input_text m-1" name="contact" type="text" value="${userProfile.profile.communication?ifExists}" disabled/>
+                                Пошта для зв`язку
+                                <input class="input_text m-1" name="contact" type="text" value="${userProfile.profile.email?ifExists}" disabled/>
                             </div>
                         </div>
                     </div>

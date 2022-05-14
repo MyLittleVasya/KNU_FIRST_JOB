@@ -30,7 +30,7 @@
             </#if>
             <form action="/login" method="post">
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <button class="btn btn-outline-dark m-1" type="submit">Log in</button>
+                <button class="btn btn-outline-dark m-1" type="submit"><#if known>Log out<#else>Log in</#if></button>
             </form>
         </div>
     </div>
