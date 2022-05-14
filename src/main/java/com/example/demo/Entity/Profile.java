@@ -16,6 +16,8 @@ public class Profile {
     private String marks;
     private String communication;
 
+    private String email;
+
     private String petProject;
 
     private String cv;
@@ -119,5 +121,13 @@ public class Profile {
 
     public void setPIB(String PIB) {
         this.PIB = PIB;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

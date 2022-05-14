@@ -7,7 +7,11 @@ import com.example.demo.Entity.UserRole;
 import com.example.demo.Repo.FeatureRepo;
 import com.example.demo.Repo.ProfileRepo;
 import com.example.demo.Repo.UserRepo;
+import org.hibernate.id.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +23,7 @@ import org.springframework.util.StringUtils;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -35,18 +40,38 @@ public class UserService implements UserDetailsService {
     @Autowired
     private ProfileRepo profileRepo;
 
+    @Autowired
+    private JavaMailSender emailSender;
+
+    @Value("${spring.mail.username}")
+    private String username;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepo.findByUsername(username);
     }
 
-    public boolean addUser(User user) {
+    public boolean addUser(User user, Map<String, String> body) {
         user.setUserRole(Collections.singleton(UserRole.USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setActive(true);
+        user.setActive(false);
         var profile = new Profile();
         profileRepo.save(profile);
         user.setProfile(profile);
+        user.getProfile().setEmail(body.get("email"));
+        user.setActivationCode(UUID.randomUUID().toString());
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(username);
+        message.setTo(user.getProfile().getEmail());
+        message.setSubject("Activate your account please. No Reply");
+        message.setText(String.format(
+                "Hello, %s! \n" +
+                        "Welcome to FirstJob! \n"+
+                        "Visit next link to activate your account \n"+
+                        "http://localhost:8080/activate/%s",
+                user.getUsername(),
+                user.getActivationCode()));
+        emailSender.send(message);
         userRepo.save(user);
         return true;
     }

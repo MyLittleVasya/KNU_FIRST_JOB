@@ -18,6 +18,8 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private boolean active;
+
+    private String activationCode;
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
@@ -113,6 +115,14 @@ public class User implements UserDetails {
         this.features = features;
     }
 
+    public String getActivationCode() {
+        return activationCode;
+    }
+
+    public void setActivationCode(String activationCode) {
+        this.activationCode = activationCode;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -132,4 +142,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return isActive();
     }
+
+
 }

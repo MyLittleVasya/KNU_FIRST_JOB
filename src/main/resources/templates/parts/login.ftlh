@@ -8,6 +8,12 @@
                 <div class="col-sm-6">
                     <input type="password" name="password" class="form-control" placeholder="Password" />
                 </div>
+                <label class="col-sm-2 col-form-label" align="center">Email</label>
+                <#if isRegisterForm>
+                    <div class="col-sm-6">
+                        <input type="email" name="email" class="form-control" placeholder="your email" />
+                    </div>
+                </#if>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div align="center">
             <button class="btn btn-outline-dark m-1" type="submit">
