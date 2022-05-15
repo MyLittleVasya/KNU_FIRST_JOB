@@ -23,6 +23,7 @@
                 </li>
             </ul>
             <#if known>
+                <a href="/settings" class="m-2"><img src="/static/img/setting.png" style="height: 32px; width: 32px"></a>
                 <form action="/profile/${securityId}" method="get">
                     <input type="hidden" name="_csrf" value="${_csrf.token}"/>
                     <button class="btn btn-outline-dark m-1" type="submit">${name} - профіль</button>

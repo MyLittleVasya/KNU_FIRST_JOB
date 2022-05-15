@@ -7,7 +7,6 @@ import com.example.demo.Repo.FeatureRepo;
 import com.example.demo.Repo.UserRepo;
 import com.example.demo.Repo.VacancyRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 

@@ -1,6 +1,5 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.Entity.Feature;
 import com.example.demo.Entity.User;
 import com.example.demo.Entity.Vacancy;
 import com.example.demo.Repo.FeatureRepo;
@@ -8,12 +7,13 @@ import com.example.demo.Repo.UserRepo;
 import com.example.demo.Repo.VacancyRepo;
 import com.example.demo.Service.VacancyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
